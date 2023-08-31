@@ -8,6 +8,10 @@ const client = createClient({
 });
 
 export default function IndexPage({ pets }) {
+  pets.forEach((element) => {
+    console.log(element.name);
+  });
+
   return (
     <>
       <header>
