@@ -17,6 +17,9 @@ export default function IndexPage({ pets }) {
       <header>
         <h1>Sanity + Next.js</h1>
       </header>
+      <meta http-equiv="cache-control" content="no-cache" />
+      <meta http-equiv="expires" content="0" />
+      <meta http-equiv="pragma" content="no-cache" />
       <main>
         <h2>pets</h2>
         {pets.length > 0 && (
