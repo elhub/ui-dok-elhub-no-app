@@ -44,13 +44,13 @@ export default function IndexPage({ pets }) {
 }
 
 export async function getStaticProps() {
-  const revalidate = 10;
-  const pets = await client.fetch(`*[_type == "pet"]`, { next: { revalidate } });
+  const revalidate = 10; // In seconds
+  const pets = await client.fetch(`*[_type == "pet"]` /* , { next: { revalidate } } */);
 
   return {
     props: {
       pets,
     },
-    revalidate, // In seconds
+    revalidate,
   };
 }
