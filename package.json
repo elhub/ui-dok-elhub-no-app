@@ -1,5 +1,5 @@
 {
-  "name": "hello-sanity-nextjs-starter",
+  "name": "ui-dok-elhub-no-app",
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
@@ -12,10 +12,10 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "framer-motion": "^10.16.2",
-    "next": "^13",
+    "next": "^13.2.1",
     "next-sanity": "^5.4.6",
-    "react": "^18",
-    "react-dom": "^18"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "license": "MIT",
   "keywords": [],

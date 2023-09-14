@@ -1,13 +1,14 @@
+import React from "react";
 import { createClient } from "next-sanity";
 
 const client = createClient({
-  projectId: "ovv3c751",
+  projectId: "ovv3c751", // process.env.NEXT_APP_NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: "production",
   apiVersion: "2023-08-31",
   useCdn: false,
 });
 
-export default function IndexPage({ pets }) {
+const Pets = ({ pets }) => {
   pets.forEach((element) => {
     console.log(element.name);
   });
@@ -17,9 +18,6 @@ export default function IndexPage({ pets }) {
       <header>
         <h1>Sanity + Next.js</h1>
       </header>
-      <meta http-equiv="cache-control" content="no-cache" />
-      <meta http-equiv="expires" content="0" />
-      <meta http-equiv="pragma" content="no-cache" />
       <main>
         <h2>pets</h2>
         {pets.length > 0 && (
@@ -44,7 +42,7 @@ export default function IndexPage({ pets }) {
       </main>
     </>
   );
-}
+};
 
 export async function getStaticProps() {
   const revalidate = 10; // In seconds
@@ -57,3 +55,5 @@ export async function getStaticProps() {
     revalidate,
   };
 }
+
+export default Pets;
