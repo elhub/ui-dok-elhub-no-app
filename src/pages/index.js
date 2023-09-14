@@ -4,7 +4,7 @@ import Card from "../components/Card";
 import { createClient } from "next-sanity";
 
 const client = createClient({
-  projectId: process.env.NEXT_APP_NEXT_PUBLIC_SANITY_PROJECT_ID,
+  projectId: "ovv3c751", // process.env.NEXT_APP_NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: "production",
   apiVersion: "2023-08-31",
   useCdn: false,
