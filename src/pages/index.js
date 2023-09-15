@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Center, Flex, HStack } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, Input, Wrap } from "@chakra-ui/react";
 import Card from "../components/Card";
 import { createClient } from "next-sanity";
 import Link from "next/link";
@@ -14,39 +14,42 @@ const client = createClient({
 export default function IndexPage({ projects }) {
   return (
     <>
-      <Box>
+      <Flex flexDir="column">
+        <Flex boxShadow="lg" color="green.600" minH="20" py="2" px="4" align="center" justify={{ base: "none", md: "left" }}>
+          <Link href="/">
+            <Box ml="4" fontWeight="bold">
+              dok.elhub.no
+            </Box>
+          </Link>
+        </Flex>
         <Flex
-          bg="colors.norway.darkblue"
-          color="colors.norway.white"
-          minH="14"
+          flexDir="column"
+          gap="8"
+          bgGradient="linear(to-r, purple.900, 70%, cyan.400, cyan.200)"
+          color="white"
+          minH="96"
           py="2"
           px="4"
           align="center"
           justify={{ base: "none", md: "center" }}
         >
-          dok.elhub.no
+          <Heading as="h1" size="4xl" noOfLines={3} fontWeight="400" p="4">
+            Elhub markedsdokumentasjon
+          </Heading>
+          <Input placeholder="Search" size="lg" type="search" w="560px" bg="white" color="black" rounded="full" />
         </Flex>
-        <Flex
-          bg="colors.norway.blue"
-          color="colors.norway.white"
-          minH="14"
-          py="2"
-          px="4"
-          align="center"
-          justify={{ base: "none", md: "center" }}
-        >
-          Elhub markedsdokumentasjon
-        </Flex>
+      </Flex>
+      <Box minH="calc(100vh - 464px)">
+        <Center p="8">
+          <Wrap maxW="1024px" spacingY="6" spacingX="8">
+            {projects.map((project, i) => (
+              <Link key={i} href={`/${project.breadcrumb}`}>
+                <Card title={project.name}></Card>
+              </Link>
+            ))}
+          </Wrap>
+        </Center>
       </Box>
-      <Center>
-        <HStack>
-          {projects.map((project, i) => (
-            <Link key={i} href={`/${project.breadcrumb}`}>
-              <Card title={project.name}></Card>
-            </Link>
-          ))}
-        </HStack>
-      </Center>
     </>
   );
 }
