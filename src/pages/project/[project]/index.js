@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
-import { Box, Flex } from "@chakra-ui/react";
-import Sidepanel from "../components/Sidepanel";
+import { Box, Flex, Stack } from "@chakra-ui/react";
+import Sidepanel from "../../../components/Sidepanel";
 import { createClient } from "next-sanity";
 
 const client = createClient({
@@ -12,28 +12,30 @@ const client = createClient({
 });
 
 export async function getServerSideProps(context) {
-  const { id } = context.query;
+  const { project: breadcrumb } = context.query;
 
-  const projects = await client.fetch(`*[_type == "project"]`);
+  const articles = await client.fetch(`*[breadcrumb == "${breadcrumb}" && _type == "project"].articles[]->`);
 
   return {
     props: {
-      id,
-      projects,
+      breadcrumb,
+      articles,
     },
   };
 }
 
-const IdPage = ({ id, projects }) => {
+const IdPage = ({ breadcrumb, articles }) => {
   return (
     <>
       <Head>
-        <title>{id}</title>
+        <title>{breadcrumb}</title>
       </Head>
       <Flex>
-        <Sidepanel projects={projects}></Sidepanel>
+        <Sidepanel breadcrumb={breadcrumb} articles={articles}></Sidepanel>
         <Box rounded="4" w="sizes.container.lg" h="calc(100vh - 7rem)" mx="2" align="center">
-          {id}
+          {articles.map((article, index) => {
+            return <Box key={index}>{article.header}</Box>;
+          })}
         </Box>
       </Flex>
     </>

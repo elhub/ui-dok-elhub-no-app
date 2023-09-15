@@ -12,7 +12,6 @@ const client = createClient({
 });
 
 export default function IndexPage({ projects }) {
-  console.log(projects);
   return (
     <>
       <Flex flexDir="column">
@@ -37,7 +36,7 @@ export default function IndexPage({ projects }) {
         <Center p="8">
           <Wrap maxW="1024px" spacingY="6" spacingX="8">
             {projects.map((project, i) => (
-              <Link key={i} href={`/${project.breadcrumb}`}>
+              <Link key={i} href={`project/${project.breadcrumb}`}>
                 <Card title={project.name}></Card>
               </Link>
             ))}
