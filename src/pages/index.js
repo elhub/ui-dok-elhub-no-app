@@ -12,16 +12,10 @@ const client = createClient({
 });
 
 export default function IndexPage({ projects }) {
+  console.log(projects);
   return (
     <>
       <Flex flexDir="column">
-        <Flex boxShadow="lg" color="green.600" minH="20" py="2" px="4" align="center" justify={{ base: "none", md: "left" }}>
-          <Link href="/">
-            <Box ml="4" fontWeight="bold">
-              dok.elhub.no
-            </Box>
-          </Link>
-        </Flex>
         <Flex
           flexDir="column"
           gap="8"
