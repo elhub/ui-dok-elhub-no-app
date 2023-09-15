@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Center, Flex, HStack } from "@chakra-ui/react";
 import Card from "../components/Card";
 import { createClient } from "next-sanity";
+import Link from "next/link";
 
 const client = createClient({
   projectId: "ovv3c751", // process.env.NEXT_APP_NEXT_PUBLIC_SANITY_PROJECT_ID,
@@ -40,7 +41,9 @@ export default function IndexPage({ projects }) {
       <Center>
         <HStack>
           {projects.map((project, i) => (
-            <Card key={i} title={project.name}></Card>
+            <Link key={i} href={`/${project.breadcrumb}`}>
+              <Card title={project.name}></Card>
+            </Link>
           ))}
         </HStack>
       </Center>
