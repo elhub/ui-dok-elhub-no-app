@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import { Center, Flex, Heading, Text } from "@chakra-ui/react";
+import { Flex, Heading, Text } from "@chakra-ui/react";
 import Sidepanel from "../../../../components/Sidepanel";
 import { createClient } from "next-sanity";
 
@@ -17,7 +17,6 @@ export async function getServerSideProps(context) {
   const articles = await client.fetch(`*[_id == "${id}" && _type == "article"]`);
   const sidepanelArticles = await client.fetch(`*[breadcrumb == "${breadcrumb}" && _type == "project"].articles[]->`);
 
-  console.log(breadcrumb);
   return {
     props: {
       breadcrumb,
@@ -28,8 +27,6 @@ export async function getServerSideProps(context) {
 }
 
 const IdPage = ({ article, breadcrumb, sidepanelArticles }) => {
-  console.log(article.paragraph[0].children[0].text);
-
   return (
     <>
       <Head>
@@ -37,7 +34,7 @@ const IdPage = ({ article, breadcrumb, sidepanelArticles }) => {
       </Head>
       <Flex>
         <Sidepanel breadcrumb={breadcrumb} articles={sidepanelArticles}></Sidepanel>
-        <Flex m="16" ml="32" flexDir="column" gap="16">
+        <Flex m="16" ml="32" flexDir="column" gap="16" w="sizes.container.lg">
           <Heading>{article.header}</Heading>
           {article.paragraph.map((el, i) => {
             return (

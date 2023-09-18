@@ -1,7 +1,8 @@
 import React from "react";
 import Head from "next/head";
-import { Box, Flex, Stack } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import Sidepanel from "../../../components/Sidepanel";
+import ContentTable from "../../../components/ContentTable";
 import { createClient } from "next-sanity";
 
 const client = createClient({
@@ -15,16 +16,18 @@ export async function getServerSideProps(context) {
   const { project: breadcrumb } = context.query;
 
   const articles = await client.fetch(`*[breadcrumb == "${breadcrumb}" && _type == "project"].articles[]->`);
+  const project = await client.fetch(`*[_type == "project" && breadcrumb == "${breadcrumb}"]`);
 
   return {
     props: {
       breadcrumb,
       articles,
+      project: project[0],
     },
   };
 }
 
-const IdPage = ({ breadcrumb, articles }) => {
+const IdPage = ({ breadcrumb, articles, project }) => {
   return (
     <>
       <Head>
@@ -32,11 +35,19 @@ const IdPage = ({ breadcrumb, articles }) => {
       </Head>
       <Flex>
         <Sidepanel breadcrumb={breadcrumb} articles={articles}></Sidepanel>
-        <Box rounded="4" w="sizes.container.lg" h="calc(100vh - 7rem)" mx="2" align="center">
-          {articles.map((article, index) => {
-            return <Box key={index}>{article.header}</Box>;
-          })}
-        </Box>
+        <Flex m="16" ml="32" flexDir="column" gap="8" w="sizes.container.lg">
+          <Heading mb="8">{project.name}</Heading>
+          <Heading as="h4" size="md">
+            Description
+          </Heading>
+          <Text mb="8">{project.description}</Text>
+
+          <Heading as="h4" size="md">
+            Content
+          </Heading>
+
+          <ContentTable articles={articles} breadcrumb={breadcrumb}></ContentTable>
+        </Flex>
       </Flex>
     </>
   );
