@@ -1,23 +1,27 @@
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import Link from "next/link";
 
-export default function ContentTable({ articles, breadcrumb }) {
+export default function ContentTable({ articles, breadcrumb, isArticles }) {
   const numberOfArticles = articles.length;
 
   return (
     <Box w="sizes.container.md">
-      {articles.map((article, index) => {
-        return (
-          <ContentItem
-            key={index}
-            article={article}
-            breadcrumb={breadcrumb}
-            index={index}
-            numberOfArticles={numberOfArticles}
-          ></ContentItem>
-        );
-      })}
+      {isArticles > 0 ? (
+        articles.map((article, index) => {
+          return (
+            <ContentItem
+              key={index}
+              article={article}
+              breadcrumb={breadcrumb}
+              index={index}
+              numberOfArticles={numberOfArticles}
+            ></ContentItem>
+          );
+        })
+      ) : (
+        <Text>No articles</Text>
+      )}
     </Box>
   );
 }
@@ -37,7 +41,7 @@ const ContentItem = ({ article, breadcrumb, index, numberOfArticles }) => {
   }
 
   return (
-    <Link href={`/project/${breadcrumb}/article/${article._id}`}>
+    <Link href={`/project/${breadcrumb}/article/${article ? article._id : null}`}>
       <Box
         border="1px"
         borderBottom={borderBottom}
@@ -47,7 +51,7 @@ const ContentItem = ({ article, breadcrumb, index, numberOfArticles }) => {
         p="4"
         _hover={{ bg: "gray.100" }}
       >
-        {article.header}
+        {article ? article.header : null}
       </Box>
     </Link>
   );

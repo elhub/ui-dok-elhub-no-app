@@ -28,13 +28,15 @@ export async function getServerSideProps(context) {
 }
 
 const IdPage = ({ breadcrumb, articles, project }) => {
+  const isArticles = articles.length > 0 && articles[0] !== null;
+
   return (
     <>
       <Head>
         <title>{breadcrumb}</title>
       </Head>
       <Flex>
-        <Sidepanel breadcrumb={breadcrumb} articles={articles}></Sidepanel>
+        <Sidepanel isArticles={isArticles} breadcrumb={breadcrumb} articles={articles}></Sidepanel>
         <Flex m="16" ml="32" flexDir="column" gap="8" w="sizes.container.lg">
           <Heading mb="8">{project.name}</Heading>
           <Heading as="h4" size="md">
@@ -46,7 +48,7 @@ const IdPage = ({ breadcrumb, articles, project }) => {
             Content
           </Heading>
 
-          <ContentTable articles={articles} breadcrumb={breadcrumb}></ContentTable>
+          <ContentTable isArticles={isArticles} articles={articles} breadcrumb={breadcrumb}></ContentTable>
         </Flex>
       </Flex>
     </>

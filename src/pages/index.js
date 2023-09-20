@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Center, Flex, Heading, Input, Wrap } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, Input, Wrap, Text } from "@chakra-ui/react";
 import Card from "../components/Card";
 import { createClient } from "next-sanity";
 import Link from "next/link";
@@ -35,11 +35,13 @@ export default function IndexPage({ projects }) {
       <Box minH="calc(100vh - 464px)">
         <Center p="8">
           <Wrap maxW="1024px" spacingY="6" spacingX="8">
-            {projects.map((project, i) => (
-              <Link key={i} href={`project/${project.breadcrumb}`}>
-                <Card title={project.name}></Card>
-              </Link>
-            ))}
+            {projects.length > 0 &&
+              projects.map((project, i) => (
+                <Link key={i} href={`project/${project.breadcrumb}`}>
+                  <Card title={project.name}></Card>
+                </Link>
+              ))}
+            {!projects.length > 0 && <Text>No projects to show</Text>}
           </Wrap>
         </Center>
       </Box>

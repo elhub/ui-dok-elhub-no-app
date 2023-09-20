@@ -35,14 +35,18 @@ const IdPage = ({ article, breadcrumb, sidepanelArticles }) => {
       <Flex>
         <Sidepanel breadcrumb={breadcrumb} articles={sidepanelArticles}></Sidepanel>
         <Flex m="16" ml="32" flexDir="column" gap="16" w="sizes.container.lg">
-          <Heading>{article.header}</Heading>
-          {article.paragraph.map((el, i) => {
-            return (
-              <Text key={i} color="black">
-                {el.children[0].text}
-              </Text>
-            );
-          })}
+          {article.header ? <Heading>{article.header}</Heading> : <Text>Header missing</Text>}
+          {article.paragraph && article.paragraph.length > 0 ? (
+            article.paragraph.map((el, i) => {
+              return (
+                <Text key={i} color="black">
+                  {el.children[0].text}
+                </Text>
+              );
+            })
+          ) : (
+            <Text>Paragraph missing</Text>
+          )}
         </Flex>
       </Flex>
     </>
